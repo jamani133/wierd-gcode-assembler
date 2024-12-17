@@ -101,16 +101,23 @@ for step in squareSteps:
 print(squareSteps)
 
 preCodeFile = open(preCode,"r")
-
 GCODE = preCodeFile.read()
+
+
+generating = True
+sliceIndex = 0
+while generating:
+    for part in configuration:
+        GCODE
+    sliceIndex += 1
+
+
 
 
 
 
 postCodeFile = open(postCode,"r")
-
 GCODE += postCodeFile.read()
-
 GCODEFile = open("output.gcode","w")
 GCODEFile.write(GCODE)
 GCODEFile.close()
