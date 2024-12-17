@@ -16,6 +16,9 @@ postCode = "postCode.gcode"
 #read gcode
 
 
+
+
+
 squareSteps = []
 squareFile = open("square.gcode","r")
 prevE = 0
@@ -78,7 +81,13 @@ for step in triangleSteps:
     if step[0] == "G1":
         if not step[3] == None and step[3] > triz:
             triz = step[3]
-print(triz)
+triangleSlices = [[[None,None,None,None,None,None]],[[None,None,None,None,None,None]],[[None,None,None,None,None,None]],[[None,None,None,None,None,None]],[[None,None,None,None,None,None]],[[None,None,None,None,None,None]],[[None,None,None,None,None,None]],[[None,None,None,None,None,None]],[[None,None,None,None,None,None]],[[None,None,None,None,None,None]],[[None,None,None,None,None,None]]]
+z = 0
+for step in triangleSteps:
+    if step[0] == "G1" or step[0] == "G0" :
+        if not step[3] == None:
+            z = step[3]
+    triangleSlices[math.floor(z/maxSlice)].append(step)
 
 
 
@@ -108,7 +117,23 @@ generating = True
 sliceIndex = 0
 while generating:
     for part in configuration:
-        GCODE
+        if part[0] == 4:
+            shape = squareSlices
+        if part[0] == 3:
+            shape = triangleSlices
+
+        for step in shape:
+            
+            GCODE = GCODE + step[0]
+            if step[0] == "G1" or step[0] == "G0" :
+                GCODE = GCODE + " "
+                if not step[1] == None:
+                    GCODE = GCODE + "X" + str(step[0]+configuration[1])+" "
+                if not step[1] == None:
+                    GCODE = GCODE + "X" + str(step[0]+configuration[1])+" "
+                if not step[1] == None:
+                    GCODE = GCODE + "X" + str(step[0]+configuration[1])+" "
+            GCODE = GCODE + "\n"
     sliceIndex += 1
 
 
